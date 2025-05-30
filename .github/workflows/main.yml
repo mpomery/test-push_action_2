@@ -23,6 +23,6 @@ jobs:
             git remote set-url origin ${{ vars.GIT_MIRROR }}
             git config --unset http.https://github.com/.extraheader
             git config credential.https://github.com.username "x-access-token"
-            git config credential.https://github.com.helper ${GIT_TOKEN}
+            git config credential.https://github.com.helper '!f() { test "$1" = get && echo "password=${GIT_TOKEN}"; }; f'
             git config --list --show-origin
             git push -u origin main
